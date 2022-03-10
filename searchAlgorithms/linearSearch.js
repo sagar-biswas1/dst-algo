@@ -1,6 +1,5 @@
 const linearSearch = (arr, searchValue) => {
-
-if(arr.length )
+  if (arr.length === 0) return "Provide a perfect array";
 
   for (let i = 0; i < arr.length; i++) {
     const element = arr[i];
@@ -21,8 +20,6 @@ if(arr.length )
   };
 };
 
+const p = [12, 3, 3, 43, 4, 34];
 
-const p=[]
-
-console.log(linearSearch(p,7))
-console.log(p.length)
+console.log(linearSearch(p, 7));
