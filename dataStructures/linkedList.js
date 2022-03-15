@@ -55,18 +55,15 @@ class LinkedList {
     }
 
     const node = new Node(data);
-
     let current, previous;
 
     // set current
-
     current = this.head;
     let count = 0;
-
+    //  { data: 500, next: Node { data: 100, next: Node:{ data: 300, next: null } } }
     while (count < index) {
       previous = current; // note before index
       count++;
-
       current = current.next; //note after index
     }
 
@@ -76,10 +73,50 @@ class LinkedList {
   };
 
   // get at index
+  getAt(index) {
+    let current = this.head;
+    let count = 0;
+    while (current) {
+      if (count == index) {
+        console.log(current);
+      }
+      count++;
+      current = current.next;
+    }
+    return;
+  }
 
   // remove at index
 
+  removeAt(index) {
+    if (index > 0 && index > this.size) {
+      return;
+    }
+
+    let current = this.head;
+    let previous;
+    let count = 0;
+
+    if (index === 0) {
+      this.head = current.next;
+    } else {
+      while (count < index) {
+        count++;
+        previous = current;
+
+        current = current.next;
+      }
+
+      previous.next = current.next;
+    }
+    this.size--;
+  }
+
   // clear list index
+  clearList() {
+    this.head = null;
+    this.size = 0;
+  }
 
   // print list data
   printListData = () => {
@@ -96,6 +133,8 @@ let q = new LinkedList();
 
 q.insertFirst(100);
 q.insertFirst(200);
-q.insertAt(500, 1);
+q.insertAt(500, 0);
+q.getAt(1);
 
-console.dir(q);
+q.removeAt(0);
+console.log(q);
