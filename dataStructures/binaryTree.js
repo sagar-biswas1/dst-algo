@@ -6,6 +6,8 @@ class Node {
   }
 }
 
+
+var q=0
 class BTS {
   constructor() {
     this.root = null;
@@ -40,6 +42,53 @@ class BTS {
       return searchTree(node);
     }
   }
+
+  //delete data from the tree
+
+  remove(data) {
+    const removeNode = function (node, data) {
+      if (node === null) {
+        return null;
+      }
+
+      if (data === node.data) {
+        //node has no children
+        if (node.left === null && node.right === null) {
+          return null;
+        }
+
+        // node has no left children
+        if (node.left === null) {
+          return node.right;
+        }
+        // node has no right children
+        if (node.right === null) {
+          return node.left;
+        }
+        // node has two children
+        var tempNode = node.right;
+        while (tempNode.left !== null) {
+          tempNode = tempNode.left;
+        }
+
+        node.data = tempNode.data;
+        node.right = removeNode(node.right, data);
+
+        return node;
+      } else if (data < node.data) {
+        node.left = removeNode(node.left, data);
+        return node;
+      } else {
+        node.right = removeNode(node.right, data);
+        return node;
+      }
+    };
+
+    this.root = removeNode(this.root, data);
+
+    return this.root;
+  }
+
   // find min value from the search tree
 
   findMin() {
@@ -105,15 +154,62 @@ class BTS {
     }
     return false;
   }
+          // 5 
+        // 4    6  
+  // find min height
+  minHeight(node = this.root) {
+    q++
+    if (node === null) {
+      return -1;
+    }
+
+    let left = this.minHeight(node.left);
+    
+    let right = this.minHeight(node.right);
+
+    if (left < right) {
+      return left + 1;
+    } else {
+      return right + 1;
+    }
+  }
+
+
+// find max height
+
+maxHeight(node=this.node){
+   if (node === null) {
+     return -1;
+   }
+
+   let left = this.maxHeight(node.left);
+   let right = this.maxHeight(node.right);
+
+   if (left > right) {
+     return left + 1;
+   } else {
+     return right + 1;
+   }
+}
+
 }
 
 const btree = new BTS();
 
-// btree.add(50);
-// btree.add(5);
-// btree.add(9);
+btree.add(50);
+btree.add(5);
+btree.add(55);
+// btree.add(6);
+// btree.add(97);
 
 // btree.add(99);
 // btree.add(90);
-// console.log(btree.find(50));
-// console.log(btree)
+
+// console.log("before", btree.root);
+// btree.remove(5);
+console.log("this is tree,", btree.minHeight());
+
+
+
+
+
