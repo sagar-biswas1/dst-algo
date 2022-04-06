@@ -19,44 +19,47 @@ class Graph {
   addVertex(vertex = null) {
     if (vertex !== null && vertex !== undefined) {
       this.#vertices.add(vertex);
-      this.#adjacentList.set(vertex, new Set());
+      console.log(vertex.name)
+      this.#adjacentList.set(vertex.name, new Set());
     }
   }
 
   addEdge(vertex1 = null, vertex2 = null, directed = true) {
     if (vertex1 !== null && vertex2 !== null && vertex1 !== vertex2) {
-      if (!this.#adjacentList.has(vertex1)) {
+      if (!this.#adjacentList.has(vertex1.name)) {
         this.addVertex(vertex1);
       }
-      if (!this.#adjacentList.has(vertex2)) {
+      if (!this.#adjacentList.has(vertex2.name)) {
         this.addVertex(vertex2);
       }
 
-      this.#adjacentList.get(vertex1).add(vertex2);
+      this.#adjacentList.get(vertex1.name).add(vertex2);
       if (directed) {
-        this.#adjacentList.get(vertex2).add(vertex1);
+        this.#adjacentList.get(vertex2.name).add(vertex1);
       }
     }
   }
 }
 
-
-
-
 const graph= new Graph()
 
-const vertices =['a','b','c','d','e','f']
 
-graph.addEdge('a','b')
-graph.addEdge('a','c')
-graph.addEdge('a','d')
-graph.addEdge('b','e')
-graph.addEdge('b','f')
-graph.addEdge('b','b')
-graph.addEdge('c','b')
-graph.addEdge('c','b')
-graph.addEdge('c','b')
-graph.addEdge('d','b')
+
+const a={name:'a'}
+const b={name:'b'}
+const c={name:'c'}
+const e={name:'e'}
+const f={name:'f'}
+const g={name:'g'}
+const h={name:'h'}
+
+graph.addEdge(a,b)
+graph.addEdge(a,c)
+graph.addEdge(b,c)
+graph.addEdge(a,h)
+graph.addEdge(h,g)
+graph.addEdge(e,f)
+
 
 console.log(graph.vertices)
 console.log(graph.adjacentList)
