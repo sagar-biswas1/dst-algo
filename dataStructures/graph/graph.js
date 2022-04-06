@@ -125,6 +125,33 @@ const breathFirstSearch = (graph, fromVertex, callback) => {
   }
 };
 
+//it follow stack
+const depthFirstSearch = (graph, fromVertex, callback) => {
+  const { vertices, adjacentList } = graph;
+  const color = vertices.reduce((colors, vertex) => {
+    return { ...colors, [vertex]: COLORS.GREEN };
+  }, {});
+
+  if (typeof callback == "function") {
+    callback(fromVertex);
+  }
+
+  color[fromVertex] = COLORS.YELLOW;
+
+  function visit(vertex) {
+    if (color[vertex] === COLORS.GREEN) {
+      if (typeof callback == "function") {
+        callback(vertex);
+      }
+      color[vertex] = COLORS.YELLOW;
+      adjacentList[vertex].forEach(visit);
+    }
+  }
+
+  adjacentList[fromVertex].forEach(visit);
+
+};
+
 graph.addEdge("a", "b");
 graph.addEdge("a", "c");
 graph.addEdge("a", "d");
@@ -132,6 +159,7 @@ graph.addEdge("b", "e");
 graph.addEdge("b", "f");
 
 console.log(graph.toString());
-breathFirstSearch(graph, "a", console.log);
+// breathFirstSearch(graph, "a", console.log);
+// depthFirstSearch(graph, "a", console.log);
 
 // [a,b,c,d,e,f]
